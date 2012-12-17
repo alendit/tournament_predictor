@@ -12,9 +12,8 @@ def main():
         print __doc__
         sys.exit(1)
     else:
-        tournament = Tournament.from_json(sys.argv[1])
-        prediction_getter = WebPredictor()
-        print tournament.calculate_prediction(prediction_getter)
+        tournament = Tournament.from_json(sys.argv[1], WebPredictor())
+        print tournament.calculate_prediction()
 
 
 if __name__ == "__main__":
