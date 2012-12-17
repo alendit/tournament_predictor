@@ -5,6 +5,7 @@ import unittest
 from prediction import Prediction
 
 from IPython import embed
+from Tournament import Tournament
 
 
 class DummyPredGetter(object):
@@ -17,13 +18,30 @@ class DummyPredGetter(object):
 class TestPrediction(unittest.TestCase):
     """Contaions prediction class tests"""
 
-    def testBasicIntersect(self):
+    def test_basic_intersect(self):
         prediction1 = Prediction({"p1": .5, "p2": .5})
         prediction2 = Prediction({"p3": .5, "p4": .5})
         intersect_pred = prediction1.intersect(prediction2, None,
                                                 DummyPredGetter())
         self.assertEquals(sum(intersect_pred.values()), 1)
         self.assertTrue(all((val == .25 for val in intersect_pred.values())))
+
+
+class TestTournament(unittest.TestCase):
+    """Contains tournament class tests"""
+
+    def test_json_loading(self):
+        path = 'test_tournament.json'
+        tournament = Tournament.from_json(path)
+        self.assertTrue(isinstance(tournament, Tournament))
+        self.assertEquals(len(tournament.bracket), 2)
+
+    def test_json_not_found(self):
+        path = "lol_path.json"
+        self.assertRaises(IOError, Tournament.from_json, path)
+
+    def _test_prediction_calculation(self):
+        pass
 
 
 if __name__ == "__main__":
