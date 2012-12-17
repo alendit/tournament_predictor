@@ -1,7 +1,6 @@
 '''
-"Usage: python tournament.py <json_description.json>"
+Tournament module
 '''
-import sys
 import simplejson
 from prediction import Prediction
 from prediction_getter import WebPredictor
@@ -41,12 +40,3 @@ class Tournament(object):
         except IOError as error:
             print error
             raise
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print __doc__
-        sys.exit(1)
-    else:
-        tournament = Tournament.from_json(sys.argv[1])
-        prediction_getter = WebPredictor()
-        print tournament.calculate_prediction(prediction_getter)
