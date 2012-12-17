@@ -1,11 +1,13 @@
 {"tournament" : [
                     [
                     "DongRaeGu",
-                    "Mvp"
+                    "Mvp",
+                    3
                     ],
                     [
                     "MC",
-                    "Stephano"
-                    ]
+                    "Stephano",
+                    3
+                    ], 5
                 ]
 }

@@ -5,7 +5,8 @@ import unittest
 from prediction import Prediction
 
 from IPython import embed
-from Tournament import Tournament
+from tournament import Tournament
+from prediction_getter import WebPredictor
 
 
 class DummyPredGetter(object):
@@ -34,14 +35,18 @@ class TestTournament(unittest.TestCase):
         path = 'test_tournament.json'
         tournament = Tournament.from_json(path)
         self.assertTrue(isinstance(tournament, Tournament))
-        self.assertEquals(len(tournament.bracket), 2)
+        self.assertEquals(len(tournament.bracket), 3)
 
     def test_json_not_found(self):
         path = "lol_path.json"
         self.assertRaises(IOError, Tournament.from_json, path)
 
-    def _test_prediction_calculation(self):
-        pass
+    def test_prediction_calculation(self):
+        path = 'test_tournament.json'
+        tournament = Tournament.from_json(path)
+        final_prediction = tournament.calculate_prediction(WebPredictor())
+        self.assertEquals(len(final_prediction), 4)
+        self.assertAlmostEquals(sum(final_prediction.values()), 1, 1)
 
 
 if __name__ == "__main__":
