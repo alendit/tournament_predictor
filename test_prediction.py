@@ -6,7 +6,7 @@ from prediction import Prediction
 
 from IPython import embed
 from tournament import Tournament
-from prediction_getter import WebPredictor
+from web_predictor import WebPredictor
 
 
 class DummyPredGetter(object):

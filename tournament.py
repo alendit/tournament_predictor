@@ -8,9 +8,9 @@ from prediction import Prediction
 class Tournament(object):
     """Represents a play off tournament"""
 
-    def __init__(self, bracket, prediction_getter):
+    def __init__(self, bracket, predictor):
         self.bracket = bracket
-        self.prediction_getter = prediction_getter
+        self.predictor = predictor
 
     def calculate_prediction(self):
         """Does the actual calculation"""
@@ -27,15 +27,15 @@ class Tournament(object):
             else:
                 predictions.append(self._recursive_prediction(child))
         return predictions[0].intersect(predictions[1], bracket_position[2],
-                                        self.prediction_getter)
+                                        self.predictor)
 
     @classmethod
-    def from_json(cls, path, prediction_getter):
+    def from_json(cls, path, predictor):
         """Loads tourmanet description json file from path
         and returns a Tourmantent instance"""
         try:
             with open(path, 'r') as bracket_file:
                 return cls(simplejson.load(bracket_file)['tournament'],
-                           prediction_getter)
+                           predictor)
         except IOError as error:
             raise

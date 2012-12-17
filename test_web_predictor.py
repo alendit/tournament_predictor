@@ -1,5 +1,5 @@
 import unittest
-from prediction_getter import WebPredictor
+from web_predictor import WebPredictor
 
 from IPython import embed
 

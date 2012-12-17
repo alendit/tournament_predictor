@@ -2,7 +2,7 @@
 Usage: python tournament.py <json_description.json>
 '''
 import sys
-from prediction_getter import WebPredictor
+from web_predictor import WebPredictor
 from tournament import Tournament
 
 
