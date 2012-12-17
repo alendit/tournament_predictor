@@ -2,7 +2,6 @@ import urllib
 import urllib2
 from pyquery import PyQuery
 
-from IPython import embed
 from prediction import Prediction
 
 
@@ -41,6 +40,7 @@ class WebPredictor(object):
         return page
 
     def _get_page_by_ids(self, player1_id, player2_id, best_of):
+        """Gets page by id, in case nicknames are non-unique"""
         data = {"i1": player1_id,
                 "i2": player2_id,
                 "bo": best_of,
@@ -79,7 +79,8 @@ class WebPredictor(object):
             if len(row("input[type='radio']")) == 1:
                 player_ids.append(row("input[type='radio']").val())
             else:
-                possible_players = [(PyQuery(nickname).text(), PyQuery(player_id).val()) \
+                possible_players = [(PyQuery(nickname).text(),
+                                     PyQuery(player_id).val()) \
                     for nickname, player_id in zip(
                         row("a"),
                         row("input[type='radio']"),

@@ -3,18 +3,17 @@ Tournament module
 '''
 import simplejson
 from prediction import Prediction
-from prediction_getter import WebPredictor
 
 
 class Tournament(object):
     """Represents a play off tournament"""
 
-    def __init__(self, bracket):
+    def __init__(self, bracket, prediction_getter):
         self.bracket = bracket
-
-    def calculate_prediction(self, prediction_getter):
-        """Does the actual calculation"""
         self.prediction_getter = prediction_getter
+
+    def calculate_prediction(self):
+        """Does the actual calculation"""
         return self._recursive_prediction(self.bracket)
 
     def _recursive_prediction(self, bracket_position):
@@ -31,12 +30,12 @@ class Tournament(object):
                                         self.prediction_getter)
 
     @classmethod
-    def from_json(cls, path):
+    def from_json(cls, path, prediction_getter):
         """Loads tourmanet description json file from path
         and returns a Tourmantent instance"""
         try:
             with open(path, 'r') as bracket_file:
-                return cls(simplejson.load(bracket_file)['tournament'])
+                return cls(simplejson.load(bracket_file)['tournament'],
+                           prediction_getter)
         except IOError as error:
-            print error
             raise

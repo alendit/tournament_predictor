@@ -33,18 +33,18 @@ class TestTournament(unittest.TestCase):
 
     def test_json_loading(self):
         path = 'test_tournament.json'
-        tournament = Tournament.from_json(path)
+        tournament = Tournament.from_json(path, WebPredictor())
         self.assertTrue(isinstance(tournament, Tournament))
         self.assertEquals(len(tournament.bracket), 3)
 
     def test_json_not_found(self):
         path = "lol_path.json"
-        self.assertRaises(IOError, Tournament.from_json, path)
+        self.assertRaises(IOError, Tournament.from_json, path, WebPredictor())
 
     def test_prediction_calculation(self):
         path = 'test_tournament.json'
-        tournament = Tournament.from_json(path)
-        final_prediction = tournament.calculate_prediction(WebPredictor())
+        tournament = Tournament.from_json(path, WebPredictor())
+        final_prediction = tournament.calculate_prediction()
         self.assertEquals(len(final_prediction), 5)
         self.assertAlmostEquals(sum(final_prediction.values()), 1, 1)
 
