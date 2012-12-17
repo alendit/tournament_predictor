@@ -3,7 +3,7 @@ from collections import defaultdict, OrderedDict
 
 
 class Prediction(dict):
-    """Prediction class. Represents a node in a prediction graph. 
+    """Prediction class. Represents a node in a prediction graph.
     Dict of player aliases/ids and the probabilities, that the player
     advances at this point.
     """
