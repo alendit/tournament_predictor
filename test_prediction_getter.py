@@ -44,5 +44,6 @@ class TestGetWebPredictions(unittest.TestCase):
         self.assertTrue(self.player2 in prediction)
         self.assertAlmostEqual(sum(prediction.values()), 1, 2)
 
+
 if __name__ == "__main__":
     unittest.main()

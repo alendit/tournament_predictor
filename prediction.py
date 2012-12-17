@@ -12,13 +12,13 @@ class Prediction(dict):
         """Crosses the predictions and get new probabilities"""
         assert isinstance(other_prob, Prediction)
         new_dict = defaultdict(float)
-        for player1 in self.values():
-            for player2 in other_prob.values():
-                direct_prob = prediction_getter.get_prediction(\
+        for player1 in self:
+            for player2 in other_prob:
+                direct_prob = prediction_getter.get_predictions(\
                     player1, player2, best_of)
-                new_dict[player1] += direct_prob[0] * self.prob_dict[player1]\
+                new_dict[player1] += direct_prob[player1] * self[player1]\
                                         * other_prob[player2]
-                new_dict[player2] += direct_prob[1] * other_prob[player2]\
-                                        * self.prob_dict[player1]
+                new_dict[player2] += direct_prob[player2] * \
+                            other_prob[player2] * self[player1]
 
         return Prediction(new_dict)
