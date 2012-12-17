@@ -3,6 +3,7 @@ from prediction_getter import WebPredictor
 
 from IPython import embed
 
+
 class TestGetWebPredictions(unittest.TestCase):
     """Basic tests for getting web predictions"""
 
@@ -14,7 +15,6 @@ class TestGetWebPredictions(unittest.TestCase):
 
     def test_basic_getting(self):
         """Tests the chance of MC winning over Vortix"""
-
 
         site = self.predictor._get_page(self.player1,
                                         self.player2,
@@ -37,7 +37,12 @@ class TestGetWebPredictions(unittest.TestCase):
 
     def test_result_getter(self):
         """Tests the public getter method."""
-        pass
+        prediction = self.predictor.get_predictions(self.player1,
+                                                    self.player2, self.best_of)
+        self.assertEqual(len(prediction), 2)
+        self.assertTrue(self.player1 in prediction)
+        self.assertTrue(self.player2 in prediction)
+        self.assertAlmostEqual(sum(prediction.values()), 1, 2)
 
 if __name__ == "__main__":
     unittest.main()

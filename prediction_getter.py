@@ -3,6 +3,7 @@ import urllib2
 from pyquery import PyQuery
 
 from IPython import embed
+from prediction import Prediction
 
 
 class WebPredictor(object):
@@ -14,9 +15,16 @@ class WebPredictor(object):
     def get_predictions(self, player1, player2, best_of):
         """Sends request to aligulac.com to get a single bestof prediction"""
 
-        pass
+        probabilities = self._parse_result(self._get_page(player1,
+                                                    player2, best_of).read())
+        win_probabilities = {
+                             player1: sum(probabilities[0]) / 100.,
+                             player2: sum(probabilities[1]) / 100.,
+                             }
+        return Prediction(win_probabilities)
 
     def _get_page(self, player1, player2, best_of):
+        """Return a prediction page"""
         data = {"p1": player1,
                 "p2": player2,
                 "bo": best_of,
