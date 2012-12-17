@@ -6,7 +6,9 @@ Uses data from `<aligulac.com`>_ to predict outcome of a tournament.
 Example
 ---------
 
-python predict test_tournament.json
+Get predictions for a dummy-tournament (from test_tournament)::
+
+    python predict test_tournament.json
 
 JSON tournamen format
 -----------------------
