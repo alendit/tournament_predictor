@@ -11,6 +11,7 @@ class TestGetWebPredictions(unittest.TestCase):
         self.predictor = WebPredictor()
         self.player1 = "MC"
         self.player2 = "Vortix"
+        self.player_non_unique = "HerO"
         self.best_of = 5
 
     def test_basic_getting(self):
@@ -20,8 +21,7 @@ class TestGetWebPredictions(unittest.TestCase):
                                         self.player2,
                                         self.best_of)
         self.assertIsNotNone(site)
-        self.assertEqual(site.getcode(), 200)
-        self.assertNotEqual(site.read(), "")
+        self.assertNotEqual(site.html(), "")
 
     def test_result_parsing(self):
         """Tests result page parsing"""
@@ -29,7 +29,7 @@ class TestGetWebPredictions(unittest.TestCase):
                                         self.player2,
                                         self.best_of)
 
-        result = self.predictor._parse_result(site.read())
+        result = self.predictor._parse_result(site)
         num_wins = self.best_of / 2 + 1
         self.assertEqual(len(result[0]), num_wins)
         self.assertEqual(len(result[1]), num_wins)
@@ -43,6 +43,11 @@ class TestGetWebPredictions(unittest.TestCase):
         self.assertTrue(self.player1 in prediction)
         self.assertTrue(self.player2 in prediction)
         self.assertAlmostEqual(sum(prediction.values()), 1, 2)
+
+    def test_non_unique_nick(self):
+        """Tests getting prediction for non-unique nicknames"""
+        prediction = self.predictor.get_predictions(self.player1,
+                                    self.player_non_unique, self.best_of)
 
 
 if __name__ == "__main__":

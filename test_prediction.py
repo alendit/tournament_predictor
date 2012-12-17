@@ -45,7 +45,7 @@ class TestTournament(unittest.TestCase):
         path = 'test_tournament.json'
         tournament = Tournament.from_json(path)
         final_prediction = tournament.calculate_prediction(WebPredictor())
-        self.assertEquals(len(final_prediction), 4)
+        self.assertEquals(len(final_prediction), 5)
         self.assertAlmostEquals(sum(final_prediction.values()), 1, 1)
 
 
