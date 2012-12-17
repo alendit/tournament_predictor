@@ -1,5 +1,5 @@
 """This module contains the prediction class"""
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 
 
 class Prediction(dict):
@@ -22,3 +22,8 @@ class Prediction(dict):
                             other_prob[player2] * self[player1]
 
         return Prediction(new_dict)
+
+    def __repr__(self):
+        ordered_dict = OrderedDict(sorted(self.items(), key=lambda t: t[1],
+                                          reverse=True))
+        return repr(ordered_dict)
