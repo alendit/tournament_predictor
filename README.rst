@@ -3,6 +3,11 @@ Starcraft 2 tournament predictor
 
 Uses data from `<aligulac.com`>_ to predict outcome of a tournament.
 
+.. topic:: Notice!
+
+    The developer of aligulac.com has a much advanced project which you can find at https://github.com/TheBB/simul .
+    There will be no futher development in this project!
+
 Example
 ---------
 
